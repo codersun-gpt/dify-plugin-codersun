@@ -1,0 +1,17 @@
+identity:
+  author: codersun
+  name: elasticsearch_tools
+  label:
+    en_US: elasticsearch_tools
+    zh_Hans: elasticsearch_tools
+    pt_BR: elasticsearch_tools
+  description:
+    en_US: empty
+    zh_Hans: empty
+    pt_BR: empty
+  icon: icon.svg
+tools:
+  - tools/elasticsearch_tools.yaml
+extra:
+  python:
+    source: provider/elasticsearch_tools.py

@@ -1,0 +1,26 @@
+identity:
+  name: page_content_api
+  author: CoderSun
+  label:
+    en_US: Get Confluence page content
+    zh_Hans: 获取Confluence页面内容
+description:
+  human:
+    en_US: Fetch raw content from Confluence page using pageId
+    zh_Hans: 使用pageId获取Confluence页面原始内容
+  llm: 通过pageId获取Confluence页面的原始内容，返回页面标题和HTML格式的内容
+extra:
+  python:
+    source: tools/page_content.py
+parameters:
+  - name: pageId
+    type: number
+    required: true
+    label:
+      en_US: Page ID
+      zh_Hans: 页面ID
+    human_description:
+      en_US: Please input the Confluence page ID
+      zh_Hans: 请输入Confluence页面ID
+    llm_description: Confluence页面的唯一标识ID
+    form: llm 

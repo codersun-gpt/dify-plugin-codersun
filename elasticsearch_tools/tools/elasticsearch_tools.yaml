@@ -1,0 +1,30 @@
+identity:
+  name: elasticsearch_tools
+  author: codersun
+  label:
+    en_US: elasticsearch_tools
+    zh_Hans: elasticsearch_tools
+    pt_BR: elasticsearch_tools
+description:
+  human:
+    en_US: empty
+    zh_Hans: empty
+    pt_BR: empty
+  llm: empty
+parameters:
+  - name: query
+    type: string
+    required: true
+    label:
+      en_US: Query string
+      zh_Hans: 查询语句
+      pt_BR: Query string
+    human_description:
+      en_US: empty
+      zh_Hans: empty
+      pt_BR: empty
+    llm_description: empty
+    form: llm
+extra:
+  python:
+    source: tools/elasticsearch_tools.py

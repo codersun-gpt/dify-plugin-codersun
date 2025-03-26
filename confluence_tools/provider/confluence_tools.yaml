@@ -1,0 +1,61 @@
+identity:
+  author: codersun
+  name: confluence_tools
+  label:
+    en_US: confluence_tools
+    zh_Hans: confluence_tools
+    pt_BR: confluence_tools
+  description:
+    en_US: A tool to access and interact with Confluence workspaces, allowing you to retrieve, search and manage Confluence content
+    zh_Hans: 
+  icon: icon.svg
+tools:
+  - tools/html_md.yaml
+  - tools/page_content.yaml
+extra:
+  python:
+    source: provider/confluence_tools.py
+credentials_for_provider:
+  password:
+    type: secret-input
+    required: true
+    label:
+      en_US: Password
+      zh_Hans: 密码
+      pt_BR: Senha
+    placeholder:
+      en_US: Please enter your Confluence password
+      zh_Hans: 请输入你的 Confluence 密码
+    help:
+      en_US: Enter your Confluence password or contact your administrator to get access
+      zh_Hans: 请输入你的 Confluence 密码，或者联系管理员获取
+    url: https://www.confluence.com/
+  userName:
+    type: text-input
+    required: true
+    label:
+      en_US: Username
+      zh_Hans: 用户名
+      pt_BR: Nome de usuário
+    placeholder:
+      en_US: Please enter your Confluence username
+      zh_Hans: 请输入你的 Confluence 用户名
+    help:
+      en_US: Enter your Confluence username or contact your administrator to get access
+      zh_Hans: 请输入你的 Confluence 用户名，或者联系管理员获取
+    url: https://www.confluence.com/
+  baseUrl:
+    type: text-input
+    required: true
+    label:
+      en_US: Base URL
+      zh_Hans: 基础URL
+      pt_BR: URL Base
+    placeholder:
+      en_US: Please enter your Confluence base URL
+      zh_Hans: 请输入你的 Confluence 基础URL
+      pt_BR: Digite sua URL base do Confluence
+    help:
+      en_US: Enter your Confluence base URL or contact your administrator. The tool will use {baseUrl}/rest/api for all requests
+      zh_Hans: 请输入你的 Confluence 基础URL，或者联系管理员。例如 本工具通过 <baseUrl>/rest/api 来发起所有请求
+    url: https://www.confluence.com/
