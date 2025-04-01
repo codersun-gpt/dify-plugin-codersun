@@ -12,19 +12,85 @@ description:
     pt_BR: empty
   llm: empty
 parameters:
-  - name: query
+  - name: cluster_id
     type: string
     required: true
     label:
-      en_US: Query string
-      zh_Hans: 查询语句
-      pt_BR: Query string
+      en_US: Cluster ID
+      zh_Hans: 集群ID
+      pt_BR: ID do cluster
     human_description:
-      en_US: empty
-      zh_Hans: empty
-      pt_BR: empty
-    llm_description: empty
+      en_US: The ID of the cluster
+      zh_Hans: 集群ID
+      pt_BR: ID do cluster
+    llm_description: The ID of the cluster
     form: llm
+  - name: endpoint
+    type: string
+    required: true
+    default: _cluster/health
+    label:
+      en_US: Endpoint
+      zh_Hans: 端点
+      pt_BR: Endpoint
+    human_description:
+      en_US: The endpoint to call
+      zh_Hans: 要调用的端点
+      pt_BR: O endpoint a ser chamado
+    llm_description: The endpoint to call
+    form: llm
+  - name: method    
+    type: select # 参数类型
+    required: true # 是否必填
+    default: GET
+    options: # 选项列表
+      - value: GET # 选项值
+        label: # 选项标签
+          en_US: GET # 英文标签
+      - value: POST # 选项值
+        label: # 选项标签
+          en_US: POST # 英文标签
+      - value: PUT # 选项值
+        label: # 选项标签
+          en_US: PUT # 英文标签
+      - value: DELETE # 选项值
+        label: # 选项标签
+          en_US: DELETE # 英文标签
+    label:
+      en_US: Method
+      zh_Hans: 方法
+      pt_BR: Método
+    human_description:
+      en_US: The method to call
+      zh_Hans: 要调用的方法
+      pt_BR: O método a ser chamado
+    llm_description: The method to call
+    form: llm
+  - name: body
+    type: string
+    required: false
+    label:
+      en_US: Body
+      zh_Hans: 请求体
+      pt_BR: Corpo da requisição
+    human_description:
+      en_US: The body of the request
+      zh_Hans: 请求体
+      pt_BR: O corpo da requisição
+    llm_description: The body of the request
+    form: llm
+output_schema:
+  type: object
+  properties:
+    success:
+      type: boolean
+    result_object:
+      type: object
+    result_array:
+      type: array[object]
+    result_string:
+      type: string
+
 extra:
   python:
     source: tools/elasticsearch_tools.py
