@@ -6,12 +6,12 @@ identity:
     zh_Hans: elasticsearch_tools
     pt_BR: elasticsearch_tools
   description:
-    en_US: empty
-    zh_Hans: empty
-    pt_BR: empty
+    en_US: some  tools to call elasticsearch or manage elasticsearch
+    zh_Hans: 一些调用elasticsearch或管理elasticsearch的工具 
+    pt_BR: algumas ferramentas para chamar elasticsearch ou gerenciar elasticsearch
   icon: icon.svg
 tools:
-  - tools/elasticsearch_tools.yaml
+  - tools/elasticsearch_rest.yaml
 extra:
   python:
     source: provider/elasticsearch_tools.py
@@ -21,25 +21,14 @@ credentials_for_provider:
     type: secret-input
     required: true
     label:
-      zh_Hans: 用户名和密码 列表
-      en_US: username_with_password list
-      pt_BR: lista de nome de usuário e senha
+      zh_Hans: 集群地址和用户名密码 列表
+      en_US: cluster_address_with_credentials list
+      pt_BR: lista de endereço do cluster com credenciais
     placeholder:
-      zh_Hans: 请输入你的用户名和密码 jsonArray格式[{"clusterId":"username:password"}]
-      en_US: Please enter your username and password
-      pt_BR: Por favor, insira seu nome de usuário e senha jsonArray格式[{"clusterId":"username:password"}]
+      zh_Hans: 请输入你的集群地址和用户名密码 jsonArray格式[{"cluster_address":"username:password"}]
+      en_US: Please enter your cluster address and credentials in JSON array format [{"cluster_address":"username:password"}]
+      pt_BR: Por favor, insira o endereço do cluster e as credenciais no formato de array JSON [{"cluster_address":"username:password"}]
     help:
-      zh_Hans: 请求集群时会通过clusterId,在此列表中获取登录凭证
-      en_US: when requesting a cluster, the login credentials will be obtained through clusterId, and the login credentials will be obtained from this list
-      pt_BR: quando solicitando um cluster, as credenciais de login serão obtidas através do clusterId, e as credenciais de login serão obtidas desta lista
-  address_list:
-    type: text-input
-    required: true
-    label:
-      zh_Hans: 集群地址列表
-      en_US: cluster_address_list jsonArray格式[{"clusterId":"cluster_address"}]
-      pt_BR: lista de endereço do cluster jsonArray格式[{"clusterId":"cluster_address"}]
-    help:
-      zh_Hans: 请求集群时会通过clusterId,在此列表中获取集群地址
-      en_US: when requesting a cluster, the cluster address will be obtained through clusterId, and the cluster address will be obtained from this list
-      pt_BR: quando solicitando um cluster, o endereço do cluster será obtido através do clusterId, e o endereço do cluster será obtido desta lista
+      zh_Hans: 请求集群时会通过集群地址获取登录凭证
+      en_US: When requesting a cluster, the login credentials will be obtained through the cluster address
+      pt_BR: Quando solicitando um cluster, as credenciais de login serão obtidas através do endereço do cluster

@@ -1,29 +1,32 @@
 identity:
-  name: elasticsearch_tools
-  author: codersun
+  name: elasticsearch_rest
+  author: CoderSun
   label:
-    en_US: elasticsearch_tools
-    zh_Hans: elasticsearch_tools
-    pt_BR: elasticsearch_tools
+    en_US: elasticsearch_rest
+    zh_Hans: elasticsearch_rest
 description:
   human:
-    en_US: empty
-    zh_Hans: empty
-    pt_BR: empty
-  llm: empty
+    en_US: a tool to call elasticsearch rest api
+    zh_Hans: 用于调用elasticsearch rest api的工具
+    pt_BR: uma ferramenta para chamar a api rest do elasticsearch
+  llm: 用于调用elasticsearch rest api的工具
+extra:
+  python:
+    source: tools/elasticsearch_rest.py
 parameters:
-  - name: cluster_id
+  - name: cluster_address
     type: string
     required: true
+    default: http://localhost:9200
     label:
-      en_US: Cluster ID
-      zh_Hans: 集群ID
-      pt_BR: ID do cluster
+      en_US: Cluster Address
+      zh_Hans: 集群地址
+      pt_BR: Endereço do cluster
     human_description:
-      en_US: The ID of the cluster
-      zh_Hans: 集群ID
-      pt_BR: ID do cluster
-    llm_description: The ID of the cluster
+      en_US: The address of the cluster in the format "http://localhost:9200"
+      zh_Hans: 集群地址，格式为 "http://localhost:9200"
+      pt_BR: O endereço do cluster no formato "http://localhost:9200"
+    llm_description: The address of the cluster in the format "http://localhost:9200"
     form: llm
   - name: endpoint
     type: string
@@ -39,23 +42,23 @@ parameters:
       pt_BR: O endpoint a ser chamado
     llm_description: The endpoint to call
     form: llm
-  - name: method    
-    type: select # 参数类型
-    required: true # 是否必填
+  - name: method
+    type: select
+    required: true
     default: GET
-    options: # 选项列表
-      - value: GET # 选项值
-        label: # 选项标签
-          en_US: GET # 英文标签
-      - value: POST # 选项值
-        label: # 选项标签
-          en_US: POST # 英文标签
-      - value: PUT # 选项值
-        label: # 选项标签
-          en_US: PUT # 英文标签
-      - value: DELETE # 选项值
-        label: # 选项标签
-          en_US: DELETE # 英文标签
+    options:
+      - value: GET
+        label:
+          en_US: GET
+      - value: POST
+        label:
+          en_US: POST
+      - value: PUT
+        label:
+          en_US: PUT
+      - value: DELETE
+        label:
+          en_US: DELETE
     label:
       en_US: Method
       zh_Hans: 方法
@@ -90,7 +93,3 @@ output_schema:
       type: array[object]
     result_string:
       type: string
-
-extra:
-  python:
-    source: tools/elasticsearch_tools.py

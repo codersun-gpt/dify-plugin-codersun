@@ -8,10 +8,10 @@ label:
   zh_Hans: elasticsearch_tools
   pt_BR: elasticsearch_tools
 description:
-  en_US: empty
-  ja_JP: empty
-  zh_Hans: empty
-  pt_BR: empty
+  en_US: a elasticsearch tool to call elasticsearch or manage elasticsearch
+  ja_JP: a elasticsearch tool to call elasticsearch or manage elasticsearch
+  zh_Hans: elasticsearch 工具集，用于调用或管理 elasticsearch
+  pt_BR: uma ferramenta elasticsearch para chamar ou gerenciar elasticsearch
 icon: icon.svg
 resource:
   memory: 268435456
@@ -39,4 +39,3 @@ meta:
     entrypoint: main
 created_at: 2025-03-26T17:27:19.011266+08:00
 privacy: PRIVACY.md
-verified: false

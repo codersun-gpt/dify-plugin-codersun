@@ -15,40 +15,37 @@ class ElasticsearchToolsTool(Tool):
         )
     
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage]:
-        cluster_id = tool_parameters.get("cluster_id")
+        cluster_address = tool_parameters.get("cluster_address")  
         endpoint = tool_parameters.get("endpoint")
         method = tool_parameters.get("method")
         body = tool_parameters.get("body")
 
-        address_list_text = self.runtime.credentials["address_list"]
         auth_list_text = self.runtime.credentials["auth_list"]
 
-        address_list = json.loads(address_list_text)
         if not auth_list_text:
             auth_list = []
         else:
             auth_list = json.loads(auth_list_text)
 
-        address = None
         username = None
         password = None
-        # 格式 address_list: [{"101":"http://127.0.0.1:9200"}]
-        for item in address_list:
-            if str(cluster_id) in item.keys():
-                address = item[str(cluster_id)]
-                break
 
-        if not address:
-            yield self.create_variable_message("success", False)
-            yield self.create_variable_message("error_message", f"集群ID错误: {cluster_id} allIds: {address_list.keys()}")
-            return
-        
         for item in auth_list:
-            if str(cluster_id) in item.keys():
-                username, password = item[cluster_id].split(":")
+            if item.get("cluster_address") == cluster_address:
+                try:
+                    username, password = cluster_address.split(":")
+                except ValueError:
+                    yield self.create_variable_message("success", False)
+                    yield self.create_variable_message("error_message", f"cluster_address format error: {cluster_address}")
+                    return
                 break
 
-        helper = ElasticsearchHelper(address, username, password)
+        if not username or not password:
+            yield self.create_variable_message("success", False)
+            yield self.create_variable_message("error_message", f"Matching cluster_address not found: {cluster_address}")
+            return
+
+        helper = ElasticsearchHelper(cluster_address, username, password)
         result = helper._make_request(method, endpoint, json=body)
 
         yield self.create_variable_message("success", True)
