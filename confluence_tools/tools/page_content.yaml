@@ -23,4 +23,24 @@ parameters:
       en_US: Please input the Confluence page ID
       zh_Hans: 请输入Confluence页面ID
     llm_description: Confluence页面的唯一标识ID
-    form: llm 
+    form: llm  
+  - name: result_type # 参数名称
+    type: select # 参数类型
+    required: true # 是否必填
+    default: json
+    options: # 选项列表
+      - value: file # 选项值
+        label: # 选项标签
+          en_US: File # 英文标签
+      - value: text # 选项值
+        label: # 选项标签
+          en_US: Text # 英文标签
+    label:
+      en_US: Result Type
+      zh_Hans: 结果类型
+      ja_JP: 結果タイプ
+      pt_BR: tipo de resultado
+    human_description: # 用于前端展示的介绍，支持多语言
+      en_US: File for file output; Text for text output # 英文占位符
+      zh_Hans: file 表示输出为文件；text 为输出文本
+    form: form
