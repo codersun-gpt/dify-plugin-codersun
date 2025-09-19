@@ -1,1 +1,3 @@
-elasticsearch_tools/dify-plugin-windows-amd64.exe
+**/**.difypkg
+**.difypkg
+confluence_tools/confluence_tools.difypkg

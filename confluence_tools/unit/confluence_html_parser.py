@@ -12,7 +12,7 @@ def extract_language(parameters):
 
 class ConfluenceHTMLParser(HTMLParser):
     """HTML parser for converting Confluence page content to Markdown format."""
-    def __init__(self, add_level_mark: bool = False):
+    def __init__(self, add_level_mark: bool = False, mark_prefix: str = "L_"):
         # 设置convert_charrefs=False以确保CDATA内容被正确处理
         super().__init__(convert_charrefs=False)
         super().__init__(convert_charrefs=False)
@@ -22,7 +22,8 @@ class ConfluenceHTMLParser(HTMLParser):
         self.current_text = ""
         # 是否添加层级标记
         self.add_level_mark = add_level_mark
-
+        self.mark_prefix = mark_prefix
+        
         # 代码块相关
         self.in_pre = False
         self.current_code_text = ""
@@ -158,9 +159,15 @@ class ConfluenceHTMLParser(HTMLParser):
 
     def add_line(self, line):
         """添加行到 markdown 输出中，避免连续空行"""
-        # 如果当前行为空且上一行也为空，则跳过
-        if not line.strip() and self.md_lines and not self.md_lines[-1].strip():
+        # 如果是空行
+        if not line.strip():
+            # 如果列表为空或者最后一行不是空行，才添加这个空行
+            if not self.md_lines or self.md_lines[-1].strip():
+                self.md_lines.append(line)
+            # 如果最后一行已经是空行，则跳过这个空行，避免连续空行
             return
+        
+        # 非空行直接添加
         self.md_lines.append(line)
 
     def unknown_decl(self, data):
@@ -248,7 +255,7 @@ class ConfluenceHTMLParser(HTMLParser):
             heading_text = self.current_text.strip()
             # 根据是否添加层级标记生成标题
             if self.add_level_mark:
-                self.add_line("\n" + ("#" * self.heading_level) + " L_" + str(self.heading_level) + " " + heading_text + "\n")
+                self.add_line("\n" + ("#" * self.heading_level) + " " + self.mark_prefix + str(self.heading_level) + " " + heading_text + "\n")
             else:
                 self.add_line("\n" + ("#" * self.heading_level) + " " + heading_text + "\n")
 
@@ -370,4 +377,27 @@ class ConfluenceHTMLParser(HTMLParser):
 
     def get_markdown(self):
         self.flush_current_text()
-        return "\n".join(self.md_lines) 
+        
+        # 先将所有行连接起来，然后按行重新分割
+        raw_content = "\n".join(self.md_lines)
+        all_lines = raw_content.split('\n')
+        
+        # 处理连续空行，保留一个空行
+        cleaned_lines = []
+        prev_line_empty = False
+        
+        for line in all_lines:
+            is_empty = not line.strip()
+            
+            # 如果当前行是空行
+            if is_empty:
+                # 只有在前一行不是空行时才添加这个空行
+                if not prev_line_empty:
+                    cleaned_lines.append(line)
+                prev_line_empty = True
+            else:
+                # 非空行直接添加
+                cleaned_lines.append(line)
+                prev_line_empty = False
+        
+        return "\n".join(cleaned_lines)

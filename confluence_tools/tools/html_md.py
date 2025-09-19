@@ -18,6 +18,7 @@ class HtmlMdTool(Tool):
         password = self.runtime.credentials['password']
         result_type = tool_parameters.get("result_type")
         add_level_mark = tool_parameters.get("add_level_mark", False)
+        mark_prefix = tool_parameters.get("mark_prefix", "L_")
         
         # Validate required parameters
         if not all([base_url, page_id, username, password]):
@@ -38,7 +39,7 @@ class HtmlMdTool(Tool):
         print(f'success get wiki content: {wiki_title} length: {len(wiki_content)}')
 
         # Convert HTML to Markdown
-        parser = ConfluenceHTMLParser(add_level_mark=add_level_mark)
+        parser = ConfluenceHTMLParser(add_level_mark=add_level_mark, mark_prefix=mark_prefix)
         parser.feed(wiki_content)
         markdown_output = parser.get_markdown()
         print(f'success convert wiki content to markdown: {wiki_title}')

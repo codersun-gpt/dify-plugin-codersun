@@ -24,6 +24,30 @@ parameters: # 参数列表
       zh_Hans: 请输入你的pageId，可以通过文档的uri地址获取 # 中文占位符
     llm_description: 传入pageId,通过confluence api将文档内容转换为markdown的工具
     form: llm # 表单类型，llm表示这个参数需要由Agent自行推理出来，前端将不会展示这个参数
+  - name: add_level_mark
+    type: boolean
+    required: true
+    default: true
+    label:
+      en_US: Add Level Mark
+      zh_Hans: 辅助分段(L_x)
+    human_description:
+      en_US: Whether to add L_xxx level marks in headers. Level marks help with segmentation. For example - Level 2 header [## L_2] and Level 3 header [### L_3] for segmentation
+      zh_Hans: 是否在标题中添加L_xxx层级标记，层级标记可以帮助分段. 例如：二级标题[## L_2]进行分段 三级标题 [### L_3]进行分段
+    llm_description: 控制是否在Markdown标题中添加L_1、L_2等层级标记。
+    form: llm # 表单类型，llm表示这个参数需要由Agent自行推理出来，前端将不会展示这个参数
+  - name: mark_prefix
+    type: string
+    required: false
+    default: L_
+    label:
+      en_US: Mark Prefix
+      zh_Hans: 层级标记前缀
+    human_description:
+      en_US: The prefix for level marks in headers. Default is 'L_'. For example, with prefix 'L_', Level 2 header will be [## L_2]
+      zh_Hans: 标题中层级标记的前缀，默认是 'L_'。例如，前缀为 'L_' 时，二级标题将显示为 [## L_2]
+    llm_description: 控制Markdown标题中层级标记的前缀，默认是 'L_'。
+    form: llm # 表单类型，llm表示这个参数需要由Agent自行推理出来，前端将不会展示这个参数
   - name: result_type # 参数名称
     type: select # 参数类型
     required: true # 是否必填
@@ -44,15 +68,3 @@ parameters: # 参数列表
       en_US: File for file output; Text for text output # 英文占位符
       zh_Hans: file 表示输出为文件；text 为输出文本
     form: form 
-  - name: add_level_mark
-    type: boolean
-    required: true
-    default: true
-    label:
-      en_US: Add Level Mark
-      zh_Hans: 辅助分段(L_x)
-    human_description:
-      en_US: Whether to add L_xxx level marks in headers. Level marks help with segmentation. For example - Level 2 header [## L_2] and Level 3 header [### L_3] for segmentation
-      zh_Hans: 是否在标题中添加L_xxx层级标记，层级标记可以帮助分段. 例如：二级标题[## L_2]进行分段 三级标题 [### L_3]进行分段
-    llm_description: 控制是否在Markdown标题中添加L_1、L_2等层级标记。
-    form: form
